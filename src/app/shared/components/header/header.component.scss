@@ -1,0 +1,21 @@
+.public-navbar {
+  position: sticky !important;
+  top: 0;
+  z-index: 1001;
+  //transition: box-shadow .15s,background-color .15s,filter .15s;
+
+  .scrolled {
+    background-color: #fffc !important;
+    //-webkit-backdrop-filter: blur(.5rem);
+    backdrop-filter: blur(0.5rem);
+  }
+}
+
+.navbar {
+  height: 4.5rem;
+  min-height: 4.5rem;
+}
+
+.shadow {
+  box-shadow: 0 .5rem 1rem #00000026 !important;
+}

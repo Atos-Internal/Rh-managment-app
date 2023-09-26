@@ -1,0 +1,39 @@
+<!--<mat-toolbar class="justify-content-between" color="">
+
+    <span>Nodes by Kumohira</span>
+
+
+  <div>
+    <button mat-button routerLink="/{{ROOT_PATH}}/nodes">
+      Cardano Nodes
+    </button>
+    <button mat-button routerLink="/{{ROOT_PATH}}/faq">
+      About
+    </button>
+  </div>
+
+
+  <button mat-stroked-button color="primary" (click)="walletDialog()">
+    <span *ngIf="wallet && !wallet.provider" class="font-lexend">Connect wallet</span>
+    <span *ngIf="wallet && wallet.provider" class="font-lexend">{{ wallet.balance + " ₳ " + ' | ' + wallet.shortAddress }}</span>
+  </button>
+
+</mat-toolbar>-->
+<header class="d-flex align-items-center public-navbar bg-primary-50 navbar py-0 px-sm-0 scrolled shadow">
+  <div class="d-flex justify-content-between h-100 px-0 px-sm-3 container">
+    <div>
+      <span>Atos Rh Management</span>
+    </div>
+    <div>
+      <button mat-button routerLink="/{{ROOT_PATH}}/employees">
+        Employees
+      </button>
+      <button mat-button routerLink="/{{ROOT_PATH}}/faq">
+        About
+      </button>
+    </div>
+    <button mat-stroked-button color="primary" (click)="Login()">
+      <span class="font-lexend">Login</span>
+    </button>
+  </div>
+</header>

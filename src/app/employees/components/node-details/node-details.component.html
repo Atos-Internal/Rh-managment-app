@@ -1,0 +1,13 @@
+<div class="p-2 node-border cursor-pointer" role="button" (click)="onNodeSelect() ">
+
+  <div class="item-progressBar">
+    <progressbar
+      [value]="progressValue"
+      [type]="progressType"
+      [striped]="true"
+      [animate]="true"
+    >
+      <span class="font-lexend"> {{ progressValue }} %</span>
+    </progressbar>
+  </div>
+</div>

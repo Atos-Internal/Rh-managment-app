@@ -1,0 +1,37 @@
+<div mat-dialog-content role="dialog" class="px-4 py-4">
+  <ng-container>
+    <h1 class="font-color-black">Export</h1>
+  </ng-container>
+
+  <form [formGroup]="form!" (ngSubmit)="onSubmit()">
+    <ng-container>
+      <mat-form-field>
+        <mat-label>Categorie de document</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let category of documentCategories" [value]="category.name">
+            {{category.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Type de document</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let type of documentTypes" [value]="type.value">
+            {{type.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+
+    <div class="">
+      <button
+        mat-raised-button
+        color="primary"
+        role="button"
+        type="submit"
+        [disabled]="!form?.valid || submitted">
+        {{ 'Export' }}
+      </button>
+    </div>
+  </form>
+</div>

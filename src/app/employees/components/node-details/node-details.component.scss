@@ -1,0 +1,33 @@
+.node-border {
+  display: grid;
+  grid-template-areas:
+    'name name name space price price'
+    'specDetails specDetails specDetails specDetails specDetails specDetails'
+    'limitation limitation limitation limitation limitation limitation'
+    'progressBar progressBar progressBar progressBar progressBar progressBar';
+  background-color: transparent;
+  padding: 10px;
+  gap: 1px;
+
+  border-radius: 0.5rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #3f51b5;
+
+  &:hover {
+    background: #F8F8FC;
+  }
+}
+
+.node-border > div {
+  text-align: center;
+  padding: 12px 0;
+  //font-size: 30px;
+}
+
+.item-name { grid-area: name; }
+.item-price { grid-area: price; }
+.item-specTitle { grid-area: specTitle; }
+.item-specDetails { grid-area: specDetails; }
+.item-limitation { grid-area: limitation; }
+.item-progressBar { grid-area: progressBar; }
