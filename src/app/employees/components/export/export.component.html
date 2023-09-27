@@ -6,18 +6,18 @@
   <form [formGroup]="form!" (ngSubmit)="onSubmit()">
     <ng-container>
       <mat-form-field>
-        <mat-label>Categorie de document</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let category of documentCategories" [value]="category.name">
-            {{category.name}}
+        <mat-label>Catégorie de document</mat-label>
+        <mat-select [(ngModel)]="selectedCategory">
+          <mat-option *ngFor="let documentCategory of documentCategories" [value]="documentCategory">
+            {{documentCategory.categoryName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Type de document</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let type of documentTypes" [value]="type.value">
-            {{type.name}}
+        <mat-select [(ngModel)]="selectedDocumentType">
+          <mat-option *ngFor="let documentType of documentTypes" [value]="documentType">
+            {{documentType.typeName}}
           </mat-option>
         </mat-select>
       </mat-form-field>

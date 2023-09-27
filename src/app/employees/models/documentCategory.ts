@@ -1,6 +1,6 @@
 export class DocumentCategory {
   public categoryId: number = 0;
-  public name: string = '';
+  public categoryName: string = '';
 
   constructor() {
   }

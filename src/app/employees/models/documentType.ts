@@ -1,6 +1,6 @@
 export class DocumentType {
   public typeId: number = 0;
-  public name: string = '';
+  public typeName: string = '';
   public value: string = '';
 
   constructor() {
