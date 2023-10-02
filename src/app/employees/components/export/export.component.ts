@@ -19,7 +19,7 @@ export class ExportComponent implements OnInit, OnDestroy {
   form: FormGroup | undefined;
   submitted: boolean = false;
 
-  selectedCategory: number = 2 ;
+  selectedCategoryId: number = 0;
   documentCategories: DocumentCategory[] = [];
   selectedDocumentType: string = '';
   documentTypes: DocumentType[] = [];
@@ -39,7 +39,7 @@ export class ExportComponent implements OnInit, OnDestroy {
     private readonly fb: FormBuilder,
     private toastr: ToastrService,
     private documentCategoryService: DocumentCategoryService,
-    private documentTypesService: DocumentTypeService
+    private documentTypesService: DocumentTypeService,
   ) {
   }
 
@@ -63,9 +63,12 @@ export class ExportComponent implements OnInit, OnDestroy {
     });
   }
 
-  onCategorySelected() {
+  onCategorySelected(event: any) : void  {
+     // event.value sert a récupérer l'ID de la catégorie sélectionnée
+   this.selectedCategoryId = event.value;
+    // Chargement des types de document en fonction de la catégorie sélectionnée
     this.documentCategoryService
-      .getDocumentTypesByCategory(this.selectedCategory)
+      .getDocumentTypesByCategory(this.selectedCategoryId)
       .subscribe((types) => {
         this.documentTypes = types;
       });
