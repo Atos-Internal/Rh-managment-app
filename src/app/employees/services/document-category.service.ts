@@ -15,4 +15,8 @@ export class DocumentCategoryService {
   getDocumentCategories() : Observable<DocumentCategory[]> {
     return this.http.get<DocumentCategory[]>(`${this.apiUrl}/list`);
   }
+  getDocumentTypesByCategory(categoryId: number) {
+    
+    return this.http.get<any[]>(`${this.apiUrl}/${categoryId}/types`);
+  }
 }

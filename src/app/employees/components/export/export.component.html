@@ -7,16 +7,17 @@
     <ng-container>
       <mat-form-field>
         <mat-label>Catégorie de document</mat-label>
-        <mat-select [(ngModel)]="selectedCategory">
+        <mat-select [(ngModel)]="selectedCategory" (selectionChange)="onCategorySelected()">
           <mat-option *ngFor="let documentCategory of documentCategories" [value]="documentCategory">
             {{documentCategory.categoryName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
+
       <mat-form-field>
         <mat-label>Type de document</mat-label>
-        <mat-select [(ngModel)]="selectedDocumentType">
-          <mat-option *ngFor="let documentType of documentTypes" [value]="documentType">
+        <mat-select [(ngModel)]="selectedDocumentType" [disabled]="!selectedCategory">
+          <mat-option *ngFor="let documentType of documentTypes" [value]="documentType.typeId">
             {{documentType.typeName}}
           </mat-option>
         </mat-select>

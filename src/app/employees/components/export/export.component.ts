@@ -19,7 +19,7 @@ export class ExportComponent implements OnInit, OnDestroy {
   form: FormGroup | undefined;
   submitted: boolean = false;
 
-  selectedCategory: string = '';
+  selectedCategory: number = 2 ;
   documentCategories: DocumentCategory[] = [];
   selectedDocumentType: string = '';
   documentTypes: DocumentType[] = [];
@@ -46,7 +46,7 @@ export class ExportComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initForm();
     this.getDocumentCategories();
-    this.getDocumentTypes();
+    //this.getDocumentTypes();
   }
 
   initForm() {
@@ -59,13 +59,23 @@ export class ExportComponent implements OnInit, OnDestroy {
   getDocumentCategories(): void {
     this.documentCategoryService.getDocumentCategories().subscribe((documentCategories) => {
       this.documentCategories = documentCategories;
+      
     });
   }
-  getDocumentTypes(): void {
+
+  onCategorySelected() {
+    this.documentCategoryService
+      .getDocumentTypesByCategory(this.selectedCategory)
+      .subscribe((types) => {
+        this.documentTypes = types;
+      });
+  }
+
+ /*  getDocumentTypes(): void {
     this.documentTypesService.getDocumentTypes().subscribe((documentTypes) => {
       this.documentTypes = documentTypes;
     });
-  }
+  } */
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
