@@ -7,6 +7,9 @@ import { DocumentCategory } from '../../models/documentCategory';
 import { DocumentCategoryService } from '../../services/document-category.service';
 import { DocumentTypeService } from '../../services/document-type.service';
 import { DocumentType } from '../../models/documentType';
+import { ExportRequestDTO } from '../../models/export-request-dto.model';
+import { DocumentExportService } from '../../services/document-export.service';
+import { EmployeesService } from '../../employees.service';
 
 @Component({
   selector: 'app-export',
@@ -21,8 +24,9 @@ export class ExportComponent implements OnInit, OnDestroy {
 
   selectedCategoryId: number = 0;
   documentCategories: DocumentCategory[] = [];
-  selectedDocumentType: string = '';
+  selectedDocumentType: string = "";
   documentTypes: DocumentType[] = [];
+  employeeId: string ="";
 
   /*   documentCategories: any[] = [
       { categoryId: 1, name: 'Document Admin Divers' }
@@ -40,18 +44,25 @@ export class ExportComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private documentCategoryService: DocumentCategoryService,
     private documentTypesService: DocumentTypeService,
+    private documentExportService: DocumentExportService,
+    private employeesService: EmployeesService
+    
   ) {
   }
 
   ngOnInit() {
     this.initForm();
     this.getDocumentCategories();
+    this.employeesService.employeeId$.subscribe((employeeId) => {
+      this.employeeId = employeeId;
+    });
     //this.getDocumentTypes();
-  }
+    
+}
 
   initForm() {
     this.form = this.fb.group({
-      documentType: [''],
+      //documentType: [''],
     });
 
   }
@@ -84,7 +95,35 @@ export class ExportComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  onSubmit() {
+  onSelectedDocumentType(event: any): void {
+    this.selectedDocumentType = event.value;
   }
-
+  
+  onSubmit(): void {
+    const exportRequest: ExportRequestDTO = {
+      documentType: this.selectedDocumentType
+    };
+  
+    this.documentExportService.exportEmployee(this.employeeId, exportRequest)
+      .subscribe(response => {
+        if (response.body) {
+          const blob = new Blob([response.body], { type: 'application/octet-stream' });
+          const contentDisposition = response.headers.get('Content-Disposition');
+          const fileName = contentDisposition?.split(';')[1].trim().split('=')[1];
+  
+          const a = document.createElement('a');
+          document.body.appendChild(a);
+          a.style.display = 'none';
+          const url = window.URL.createObjectURL(blob);
+          a.href = url;
+          a.download = fileName || 'exported-file.docx';
+          a.click();
+          window.URL.revokeObjectURL(url);
+        } else {
+          // Gérez le cas où response.body est null
+          console.error('Le corps de la réponse est null.');
+        }
+      });
+  }
+  
 }

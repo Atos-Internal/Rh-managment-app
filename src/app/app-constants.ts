@@ -1,8 +1,8 @@
 import { Employee } from './employees/models/employee';
 
 export const ROOT_PATH = 'atos';
-export const DOCUMENT_MANAGEMENT_SERVICES_PATH = 'http://localhost:8080/api/v1/document-management-services';
-export const EMPLOYEE_SERVICES_PATH = 'http://localhost:8081/api/v1/employee-services';
+export const DOCUMENT_MANAGEMENT_SERVICES_PATH = 'http://localhost:8080/api/v1/document-management-services/document';
+export const EMPLOYEE_SERVICES_PATH = 'http://localhost:8081/api/v1/employee-services/employees';
 export const EMPLOYEES: Employee[] = [
   {
     employeeId: 'uuId-1-1',

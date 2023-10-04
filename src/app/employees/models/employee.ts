@@ -1,15 +1,15 @@
 export class Employee {
-  public employeeId: String = '';
-  public das: String = '';
-  public cin: String = '';
-  public firstName: String = '';
-  public lastName: String = '';
-  public cnssNumber: String = '';
-  public position: String = '';
-  public integrationDate: String = ''
-  public releaseDate: String = ''
+  public employeeId: string = '';
+  public das: string = '';
+  public cin: string = '';
+  public firstName: string = '';
+  public lastName: string = '';
+  public cnssNumber: string = '';
+  public position: string = '';
+  public integrationDate: string = ''
+  public releaseDate: string = ''
   public grossMonthlySalary: number = 0
-  public bankAccountNumber: String = '';
+  public bankAccountNumber: string = '';
 
   constructor() {
   }

@@ -40,7 +40,7 @@
                   <td>{{employee.grossMonthlySalary}}</td>
                   <td>{{employee.bankAccountNumber}}</td>
                   <td>
-                      <button (click)="onExportEmployee('uuid')" class="btn btn-primary">
+                      <button (click)="onExportEmployee(employee.employeeId)" class="btn btn-primary">
                           Exporter
                       </button>
                   </td>

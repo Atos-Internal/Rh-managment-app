@@ -3,7 +3,8 @@
     <h1 class="font-color-black">Export</h1>
   </ng-container>
 
-  <form [formGroup]="form!" (ngSubmit)="onSubmit()">
+  <!-- <form [formGroup]="form!" (ngSubmit)="onSubmit($event)"> -->
+    <form>
     <ng-container>
       <mat-form-field>
         <mat-label>Catégorie de document</mat-label>
@@ -16,8 +17,8 @@
 
       <mat-form-field>
         <mat-label>Type de document</mat-label>
-        <mat-select [(ngModel)]="selectedDocumentType" [disabled]="!selectedCategoryId">
-          <mat-option *ngFor="let documentType of documentTypes" [value]="documentType">
+        <mat-select [(ngModel)]="selectedDocumentType" (selectionChange)="onSelectedDocumentType($event)" [disabled]="!selectedCategoryId">
+          <mat-option *ngFor="let documentType of documentTypes" [value]="documentType.typeValue">
             {{documentType.typeName}}
           </mat-option>
         </mat-select>
@@ -26,13 +27,13 @@
 
     <div class="">
       <button
-        mat-raised-button
-        color="primary"
-        role="button"
-        type="submit"
-        [disabled]="!form?.valid || submitted">
-        {{ 'Export' }}
-      </button>
+      mat-raised-button
+      color="primary"
+      role="button"
+      (click)="onSubmit()"
+      [disabled]="!form?.valid || submitted">
+      {{ 'Export' }}
+    </button>
     </div>
   </form>
 </div>

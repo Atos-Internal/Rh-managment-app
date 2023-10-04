@@ -60,12 +60,14 @@ export class EmployeeListComponent implements OnInit {
   } */
   
 
-  onExportEmployee(employeeId: String) {
+  onExportEmployee(employeeId: string) {
     const exportRef = this.dialog.open(ExportComponent, {
       width: '400px',
       /*height: '350px',*/
       autoFocus: false,
       data: employeeId
     });
+    // Appel à la méthode setEmployeeId du service pour définir la valeur de employeeId
+    this.employeesService.setEmployeeId(employeeId);
   }
 }
