@@ -9,7 +9,7 @@ import { DocumentTypeService } from '../../services/document-type.service';
 import { DocumentType } from '../../models/documentType';
 import { ExportRequestDTO } from '../../models/export-request-dto.model';
 import { DocumentExportService } from '../../services/document-export.service';
-import { EmployeesService } from '../../employees.service';
+import { EmployeesService } from '../../services/employees.service';
 
 @Component({
   selector: 'app-export',

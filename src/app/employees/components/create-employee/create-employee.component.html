@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <h2 class="text-center mt-4">Création d'employé(e)</h2>
+        <form (ngSubmit)="onSubmit()" class="text-center">
+            
+            <div class="form-group">
+                <mat-form-field class="col-md-8">
+                  <mat-label>DAS</mat-label>
+                  <input matInput class="form-control" [(ngModel)] = "employee.das" id="das" name="das">
+                </mat-form-field>
+            </div>
+
+            <div class="form-group">
+                <mat-form-field class="col-md-8">
+                  <mat-label>CIN</mat-label>
+                  <input matInput class="form-control" [(ngModel)] = "employee.cin" id="cin" name="cin">
+                </mat-form-field>
+            </div>
+
+          <div class="form-group">
+            <mat-form-field class="col-md-8">
+              <mat-label>Prénom</mat-label>
+              <input matInput class="form-control" id="firstName" [(ngModel)] = "employee.firstName" name="firstName">
+            </mat-form-field>
+          </div>
+  
+          <div class="form-group">
+            <mat-form-field class="col-md-8">
+              <mat-label>Nom</mat-label>
+              <input matInput class="form-control" id="lastName" [(ngModel)] = "employee.lastName" name="lastName">
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field class="col-md-8">
+              <mat-label>Numéro CNSS</mat-label>
+              <input matInput class="form-control" id="cnssNumber" [(ngModel)] = "employee.cnssNumber" name="cnssNumber">
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field class="col-md-8">
+              <mat-label>Poste</mat-label>
+              <input matInput class="form-control" id="position" [(ngModel)] = "employee.position" name="position">
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field class="col-md-8">
+              <mat-label>Date d'intégration</mat-label>
+              <input matInput class="form-control" id="integrationDate" [(ngModel)] = "employee.integrationDate" name="integrationDate">
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field class="col-md-8">
+              <mat-label>Date de sortie</mat-label>
+              <input matInput class="form-control" id="releaseDate" [(ngModel)] = "employee.releaseDate" name="releaseDate">
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field class="col-md-8">
+              <mat-label>Salaire mensuel brut</mat-label>
+              <input matInput class="form-control" id="grossMonthlySalary" [(ngModel)] = "employee.grossMonthlySalary" name="grossMonthlySalary">
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field class="col-md-8">
+              <mat-label>Numéro de compte bancaire</mat-label>
+              <input matInput class="form-control" id="bankAccountNumber" [(ngModel)] = "employee.bankAccountNumber" name="bankAccountNumber">
+            </mat-form-field>
+          </div>
+  
+  
+          <div class="form-group text-center">
+            <button mat-raised-button color="primary" type="submit">Créer</button>
+          </div>
+  
+        </form>
+      </div>
+    </div>
+  </div>
+  
