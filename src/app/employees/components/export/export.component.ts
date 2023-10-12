@@ -1,16 +1,11 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {  FormBuilder, FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { ToastrService } from "ngx-toastr";
-import { Subscription, take } from "rxjs";
+import { Subscription } from "rxjs";
 import { DocumentCategory } from '../../models/documentCategory';
 import { DocumentCategoryService } from '../../services/document-category.service';
-import { DocumentTypeService } from '../../services/document-type.service';
 import { DocumentType } from '../../models/documentType';
-import { ExportRequestDTO } from '../../models/export-request-dto.model';
-import { DocumentExportService } from '../../services/document-export.service';
-import { EmployeesService } from '../../services/employees.service';
-
+import { EmployeesService } from '../../employees.service';
 @Component({
   selector: 'app-export',
   templateUrl: './export.component.html',
@@ -21,12 +16,12 @@ export class ExportComponent implements OnInit, OnDestroy {
   private subscription: Subscription | undefined;
   form: FormGroup | undefined;
   submitted: boolean = false;
+  selectedCategoryId: number =0;
+  selectedDocumentType: string | null = null;
 
-  selectedCategoryId: number = 0;
   documentCategories: DocumentCategory[] = [];
-  selectedDocumentType: string = "";
+
   documentTypes: DocumentType[] = [];
-  employeeId: string ="";
 
   /*   documentCategories: any[] = [
       { categoryId: 1, name: 'Document Admin Divers' }
@@ -39,26 +34,20 @@ export class ExportComponent implements OnInit, OnDestroy {
     ]; */
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public selectedNode: Node,
+    @Inject(MAT_DIALOG_DATA) public data: { employeeId: string, firstName:string, lastName:string},
     private readonly fb: FormBuilder,
-    private toastr: ToastrService,
+    private employeesService: EmployeesService,
+
     private documentCategoryService: DocumentCategoryService,
-    private documentTypesService: DocumentTypeService,
-    private documentExportService: DocumentExportService,
-    private employeesService: EmployeesService
-    
   ) {
   }
 
   ngOnInit() {
     this.initForm();
     this.getDocumentCategories();
-    this.employeesService.employeeId$.subscribe((employeeId) => {
-      this.employeeId = employeeId;
-    });
     //this.getDocumentTypes();
     
-}
+  }
 
   initForm() {
     this.form = this.fb.group({
@@ -85,6 +74,12 @@ export class ExportComponent implements OnInit, OnDestroy {
       });
   }
 
+  onTypeSelected(event: any) : void  {
+    // event.value sert a récupérer l'ID de la catégorie sélectionnée
+  this.selectedDocumentType = event.value;
+   // Chargement des types de document en fonction de la catégorie sélectionnée
+  }
+
  /*  getDocumentTypes(): void {
     this.documentTypesService.getDocumentTypes().subscribe((documentTypes) => {
       this.documentTypes = documentTypes;
@@ -95,35 +90,22 @@ export class ExportComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  onSelectedDocumentType(event: any): void {
-    this.selectedDocumentType = event.value;
+
+  onSubmit() {
+    const exportRequestDTO = { documentType: this.selectedDocumentType };
+    this.employeesService.exportEmployee(this.data.employeeId, exportRequestDTO).subscribe((response) => {
+      // Traitez ici la réponse de l'API (fichier DOCX)
+      // Par exemple, vous pouvez télécharger le fichier en utilisant Blob
+      // const contentDisposition = response.headers.get('content-disposition');
+      const fileName = `${this.selectedDocumentType}_${this.data.lastName}_${this.data.firstName}`;
+      const blob = new Blob([response.body], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
   }
-  
-  onSubmit(): void {
-    const exportRequest: ExportRequestDTO = {
-      documentType: this.selectedDocumentType
-    };
-  
-    this.documentExportService.exportEmployee(this.employeeId, exportRequest)
-      .subscribe(response => {
-        if (response.body) {
-          const blob = new Blob([response.body], { type: 'application/octet-stream' });
-          const contentDisposition = response.headers.get('Content-Disposition');
-          const fileName = contentDisposition?.split(';')[1].trim().split('=')[1];
-  
-          const a = document.createElement('a');
-          document.body.appendChild(a);
-          a.style.display = 'none';
-          const url = window.URL.createObjectURL(blob);
-          a.href = url;
-          a.download = fileName || 'exported-file.docx';
-          a.click();
-          window.URL.revokeObjectURL(url);
-        } else {
-          // Gérez le cas où response.body est null
-          console.error('Le corps de la réponse est null.');
-        }
-      });
-  }
-  
 }
