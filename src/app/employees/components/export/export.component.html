@@ -18,7 +18,6 @@
         <mat-label>Type de document</mat-label>
 
         <mat-select [(ngModel)]="selectedDocumentType"  [disabled]="!selectedCategoryId" (selectionChange)="onTypeSelected($event)">
-
           <mat-option *ngFor="let documentType of documentTypes" [value]="documentType.typeValue">
             {{documentType.typeName}}
           </mat-option>
@@ -36,7 +35,7 @@
         [disabled]="!form?.valid || submitted">
         {{ 'Export' }}
       </button> -->
-      <button type="submit" class="btn btn-primary">Export</button>
+    <button type="submit" class="btn btn-primary">Export</button>
     </div>
   </form>
 </div>

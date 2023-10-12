@@ -4,7 +4,9 @@ import { Subject, Subscription, take } from "rxjs";
 //import { LoginComponent } from "../../../shared/components/login/login.component";
 import { MatDialog } from "@angular/material/dialog";
 import { ExportComponent } from "../../components/export/export.component";
-import { EmployeesService } from "../../employees.service";
+import { EmployeesService } from '../../services/employees.service';
+import { Router } from '@angular/router';
+
 //import { ToastrService } from "ngx-toastr";
 //import {EMPLOYEES} from "../../../app-constants";
 
@@ -20,9 +22,51 @@ export class EmployeeListComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   showEmployeeId = false;
 
+  columnsVisibility = [
+    { label: 'Identifiant', visible: false },
+    { label: 'DAS', visible: true },
+    { label: 'CIN', visible: true },
+    { label: 'Prénom', visible: true },
+    { label: 'Nom', visible: true },
+    { label: 'Numéro CNSS', visible: true },
+    { label: 'Poste', visible: true },
+    { label: 'Date d\'intégration', visible: true },
+    { label: 'Date de sortie', visible: true },
+    { label: 'Salaire mensuel brut', visible: true },
+    { label: 'Numéro de compte bancaire', visible: true },
+  ];
+  
+  getCellValue(employee: any, columnName: string): any {
+    // Créez une correspondance entre les noms de colonnes en français et les propriétés en anglais
+    const columnMappings: { [key: string]: string } = {
+      'Identifiant': 'employeeId',
+      'DAS': 'das',
+      'CIN': 'cin',
+      'Prénom': 'firstName',
+      'Nom': 'lastName',
+      'Numéro CNSS': 'cnssNumber',
+      'Poste': 'position',
+      'Date d\'intégration': 'integrationDate',
+      'Date de sortie': 'releaseDate',
+      'Salaire mensuel brut': 'grossMonthlySalary',
+      'Numéro de compte bancaire': 'bankAccountNumber',
+    };
+  
+    // Utilisez la correspondance pour obtenir la propriété correspondante
+    const propertyName = columnMappings[columnName];
+  
+    // Vérifiez si la propriété existe avant de la récupérer
+    if (propertyName && employee.hasOwnProperty(propertyName)) {
+      return employee[propertyName];
+    } else {
+      return '';
+    }
+  }
+
   constructor(
     public dialog: MatDialog,
     private employeesService: EmployeesService,
+    private router: Router
     // private toastr: ToastrService
   ) {
   }
@@ -47,17 +91,10 @@ export class EmployeeListComponent implements OnInit {
     })
   }
 
-  /*this.employeesService.getEmployeesList()
-    .pipe(take(1))
-    .subscribe({
-      next: (employees) => this.employees = employees,
-      error: (error) => this.toastr.error('Some error occurred while retrieving Employees', 'Error'),
-    });*/
-
-
-  /*   ngOnDestroy(): void {
-      this.subscription?.unsubscribe();
-    } */
+  updateEmployee(employeeId: string)
+  {
+    this.router.navigate(['atos/employees/update-employee',employeeId]);
+  }
 
 
   onExportEmployee(employeeId: String, firstName: String, lastName: String) {

@@ -17,3 +17,16 @@
 //  // align-items: center; /* Centre horizontalement */
 //   justify-content: center; /* Centre verticalement */
 // }
+
+/* Dans votre fichier CSS/SCSS */
+.btn-custom-orange {
+  background-color: orange; /* Vous pouvez ajuster la couleur selon votre choix */
+  border-color: orange; /* Couleur de la bordure */
+  color: white; /* Couleur du texte, vous pouvez l'ajuster selon vos préférences */
+}
+
+.btn-custom-orange:hover {
+  background-color: darkorange; /* Couleur au survol du bouton */
+  border-color: darkorange; /* Couleur de la bordure au survol */
+}
+

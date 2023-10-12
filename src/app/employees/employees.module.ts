@@ -17,12 +17,16 @@ import { EmployeesRoutingModule } from "./employees-routing.module";
 import {MatSelectModule} from "@angular/material/select";
 import { DataTablesModule } from 'angular-datatables';
 import { HttpClientModule } from '@angular/common/http';
+import { CreateEmployeeComponent } from './components/create-employee/create-employee.component';
+import { UpdateEmployeeComponent } from './components/update-employee/update-employee.component';
 
 @NgModule({
   declarations: [
     NodeDetailsComponent,
     EmployeeListComponent,
-    ExportComponent
+    ExportComponent,
+    CreateEmployeeComponent,
+    UpdateEmployeeComponent
   ],
   exports: [],
   imports: [

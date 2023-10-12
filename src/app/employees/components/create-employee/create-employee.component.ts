@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { EmployeesService } from '../../services/employees.service';
 import { Router } from '@angular/router';
 import { Employee } from '../../models/employee';
+import { EmployeesService } from '../../services/employees.service';
 
 
 @Component({

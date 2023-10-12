@@ -3,19 +3,26 @@ import { RouterModule, Routes } from '@angular/router';
 import { FaqComponent } from "./shared/pages/faq/faq.component";
 import { NotFoundComponent } from "./shared/pages/not-found/not-found.component";
 import { ROOT_PATH } from "./app-constants";
+import { CreateEmployeeComponent } from './employees/components/create-employee/create-employee.component';
+import { UpdateEmployeeComponent } from './employees/components/update-employee/update-employee.component';
+import { EmployeeListComponent } from './employees/pages/employee-list/employee-list.component';
 
 const appRoutes: Routes = [
   {
+    path: '',
+    component: EmployeeListComponent,
+    //redirectTo: 'employees',
+    pathMatch: 'full' 
+  },
+  {
     path: ROOT_PATH,
     children: [
+      
       {
         path: 'not-found',
         component: NotFoundComponent
       },
-      {
-        path: 'faq',
-        component: FaqComponent
-      },
+
       {
         path: 'employees',
         // canActivateChild: [OffersAppAccessGuard, CcCandidateUserGuard],
@@ -26,10 +33,10 @@ const appRoutes: Routes = [
       }
     ]
   },
-  {
+  /* {
     path: '**',
     redirectTo: `/${ROOT_PATH}/not-found`
-  }
+  } */
 ];
 
 @NgModule({

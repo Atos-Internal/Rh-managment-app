@@ -7,6 +7,9 @@ import { SharedModule } from "./shared/shared.module";
 import { ToastrModule } from "ngx-toastr";
 import { HttpClientModule } from "@angular/common/http";
 import { DataTablesModule } from 'angular-datatables';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,11 +17,15 @@ import { DataTablesModule } from 'angular-datatables';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
     DataTablesModule,
-    ToastrModule.forRoot()
+    MatFormFieldModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule,
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
