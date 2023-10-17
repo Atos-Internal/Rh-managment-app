@@ -18,6 +18,13 @@
                 </mat-form-field>
             </div>
 
+            <div class="form-group">
+              <mat-form-field class="col-md-8">
+                <mat-label>Civilité</mat-label>
+                <input matInput class="form-control" [(ngModel)] = "employee.civility" id="civility" name="civility">
+              </mat-form-field>
+          </div>
+
           <div class="form-group">
             <mat-form-field class="col-md-8">
               <mat-label>Prénom</mat-label>
@@ -36,6 +43,13 @@
             <mat-form-field class="col-md-8">
               <mat-label>Numéro CNSS</mat-label>
               <input matInput class="form-control" id="cnssNumber" [(ngModel)] = "employee.cnssNumber" name="cnssNumber">
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field class="col-md-8">
+              <mat-label>Type de contrat</mat-label>
+              <input matInput class="form-control" id="typeContrat" [(ngModel)] = "employee.typeContrat" name="typeContrat">
             </mat-form-field>
           </div>
 

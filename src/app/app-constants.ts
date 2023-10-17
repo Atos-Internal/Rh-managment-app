@@ -3,11 +3,12 @@ import { Employee } from './employees/models/employee';
 export const ROOT_PATH = 'atos';
 export const DOCUMENT_MANAGEMENT_SERVICES_PATH = 'http://localhost:8080/api/v1/document-management-services/document';
 export const EMPLOYEE_SERVICES_PATH = 'http://localhost:8081/api/v1/employee-services/employees';
-export const EMPLOYEES: Employee[] = [
+/* export const EMPLOYEES: Employee[] = [
   {
     employeeId: 'uuId-1-1',
     das: 'A000000',
     cin: 'BE000000',
+    civility: 'Monsieur',
     firstName: 'Amine',
     lastName: 'Amine',
     cnssNumber: '123456789',
@@ -21,6 +22,7 @@ export const EMPLOYEES: Employee[] = [
     employeeId: 'uuId-1-2',
     das: 'A000000',
     cin: 'BE000000',
+    civility: 'Monsieur',
     firstName: 'Omar',
     lastName: 'Omar',
     cnssNumber: '123456789',
@@ -34,6 +36,7 @@ export const EMPLOYEES: Employee[] = [
     employeeId: 'uuId-1-3',
     das: 'A000003',
     cin: 'BE000003',
+    civility: 'Monsieur',
     firstName: 'Anas',
     lastName: 'Anas',
     cnssNumber: '123456789',
@@ -43,4 +46,4 @@ export const EMPLOYEES: Employee[] = [
     grossMonthlySalary: 20000,
     bankAccountNumber: '000000000000',
   }
-];
+]; */
