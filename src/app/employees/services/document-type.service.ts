@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DocumentTypeService {
 
-  private apiUrl = 'http://localhost:8080/api/v1/document-management-services/document/types'; 
+  private apiUrl = 'http://localhost:8082/api/v1/document-management-services/document/types'; 
 
   constructor(private http: HttpClient) { }
  

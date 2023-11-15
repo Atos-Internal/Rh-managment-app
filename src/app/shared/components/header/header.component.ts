@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from "@angular/material/dialog";
-import { LoginComponent } from "../login/login.component";
-import {ROOT_PATH} from "../../../app-constants";
+import { KeycloakService } from 'keycloak-angular';
+//import { LoginComponent } from "../login/login.component";
+//import {ROOT_PATH} from "../../../app-constants";
 
 @Component({
   selector: 'app-header',
@@ -9,9 +9,11 @@ import {ROOT_PATH} from "../../../app-constants";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  
 
   constructor(
-    public dialog: MatDialog,
+    private keycloakService: KeycloakService,
+    
   ) {
   }
 
@@ -20,12 +22,8 @@ export class HeaderComponent implements OnInit {
   }
 
   Login() {
-    const LoginRef = this.dialog.open(LoginComponent, {
-      width: '400px',
-      /*height: '350px',*/
-      autoFocus: false
+    this.keycloakService.logout().then(() => {
+      window.location.reload();
     });
   }
-
-  protected readonly ROOT_PATH = ROOT_PATH;
 }

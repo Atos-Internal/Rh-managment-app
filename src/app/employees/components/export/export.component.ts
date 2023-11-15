@@ -6,6 +6,8 @@ import { DocumentCategory } from '../../models/documentCategory';
 import { DocumentCategoryService } from '../../services/document-category.service';
 import { DocumentType } from '../../models/documentType';
 import { EmployeesService } from '../../employees.service';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+
 @Component({
   selector: 'app-export',
   templateUrl: './export.component.html',
@@ -17,10 +19,13 @@ export class ExportComponent implements OnInit, OnDestroy {
   form: FormGroup | undefined;
   submitted: boolean = false;
   selectedCategoryId: number =0;
-  selectedDocumentType: string | null = null;
+  selectedDocumentType: string = '';
+  selectedDocumentType2: string = '';
+
 
   documentCategories: DocumentCategory[] = [];
-
+  selectedEmployeeIds: string[] = [];
+  
   documentTypes: DocumentType[] = [];
 
   /*   documentCategories: any[] = [
@@ -34,10 +39,11 @@ export class ExportComponent implements OnInit, OnDestroy {
     ]; */
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { employeeId: string, firstName:string, lastName:string},
+    @Inject(MAT_DIALOG_DATA) public data: {fromExportByList:boolean, selectedEmployeeIds :string[], employeeId: string, firstName:string, lastName:string},
+
     private readonly fb: FormBuilder,
     private employeesService: EmployeesService,
-
+    public bsModalRef: BsModalRef,
     private documentCategoryService: DocumentCategoryService,
   ) {
   }
@@ -46,7 +52,7 @@ export class ExportComponent implements OnInit, OnDestroy {
     this.initForm();
     this.getDocumentCategories();
     //this.getDocumentTypes();
-    
+
   }
 
   initForm() {
@@ -92,20 +98,45 @@ export class ExportComponent implements OnInit, OnDestroy {
 
 
   onSubmit() {
-    const exportRequestDTO = { documentType: this.selectedDocumentType };
-    this.employeesService.exportEmployee(this.data.employeeId, exportRequestDTO).subscribe((response) => {
-      // Traitez ici la réponse de l'API (fichier DOCX)
-      // Par exemple, vous pouvez télécharger le fichier en utilisant Blob
-      // const contentDisposition = response.headers.get('content-disposition');
-      const fileName = `${this.selectedDocumentType}_${this.data.lastName}_${this.data.firstName}`;
-      const blob = new Blob([response.body], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-    });
+
+    console.log(this.data.selectedEmployeeIds);
+
+
+    if (this.data.fromExportByList) {
+     // const UUIDs: string[] = [this.data.selectedEmployeeIds];
+   //  const doc = this.selectedDocumentType.toString;
+   //console.log(UUIDs);
+     const str =this.selectedDocumentType2 + this.selectedDocumentType;
+     const exportRequestDTO2 = { documentType:str, UUIDs: this.data.selectedEmployeeIds };
+     this.employeesService.exportEmployees(exportRequestDTO2, str).subscribe((response) => {
+     // this.employeesService.exportEmployees2(str,UUIDs).subscribe((response) => {
+      const currentDate = new Date();
+      const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
+        const fileName = `${this.selectedDocumentType}_${formattedDate}`;
+        const blob = new Blob([response.body], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      });
+    } else {
+      const exportRequestDTO = { documentType: this.selectedDocumentType };
+      this.employeesService.exportEmployee(this.data.employeeId, exportRequestDTO).subscribe((response) => {
+        const fileName = `${this.selectedDocumentType}_${this.data.lastName}_${this.data.firstName}`;
+        const blob = new Blob([response.body], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      });
+
+
+    }
   }
 }

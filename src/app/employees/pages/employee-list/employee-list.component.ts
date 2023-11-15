@@ -6,6 +6,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { ExportComponent } from "../../components/export/export.component";
 import { EmployeesService } from '../../services/employees.service';
 import { Router } from '@angular/router';
+import { KeycloakService } from 'keycloak-angular';
 
 //import { ToastrService } from "ngx-toastr";
 //import {EMPLOYEES} from "../../../app-constants";
@@ -17,13 +18,19 @@ import { Router } from '@angular/router';
 })
 export class EmployeeListComponent implements OnInit {
 
+  userRoles: string[] = [];  
   public employees: Employee[] = [];
+ selectedEmployeeIds: string[] = [];
   private subscription: Subscription | undefined;
   dtTrigger: Subject<any> = new Subject<any>();
   showEmployeeId = false;
+  public fromExportByList = false;
+  public fromExport  = false;
 
   columnsVisibility = [
-    { label: 'Identifiant', visible: false },
+   //  { label: 'Identifiant', visible: false },
+    // { label :}
+    // { label: 'Select', visible: true },
     { label: 'DAS', visible: true },
     { label: 'CIN', visible: true },
     { label: 'Civilité', visible: true },
@@ -37,10 +44,12 @@ export class EmployeeListComponent implements OnInit {
     { label: 'Salaire mensuel brut', visible: true },
     { label: 'Numéro de compte bancaire', visible: true },
   ];
+  selectedEmployees: any;
   
   getCellValue(employee: any, columnName: string): any {
     // Créez une correspondance entre les noms de colonnes en français et les propriétés en anglais
-    const columnMappings: { [key: string]: string } = {
+    const columnMappings: { [key: string]: any } = {
+      // 'Select':'selected',
       'Identifiant': 'employeeId',
       'DAS': 'das',
       'CIN': 'cin',
@@ -70,7 +79,9 @@ export class EmployeeListComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private employeesService: EmployeesService,
+    private keycloakService: KeycloakService,
     private router: Router
+    
     // private toastr: ToastrService
   ) {
   }
@@ -84,6 +95,7 @@ export class EmployeeListComponent implements OnInit {
       processing: true
     }
     this.getEmployees();
+    this.userRoles = this.keycloakService.getUserRoles();
     //this.employees = EMPLOYEES;
 
   }
@@ -98,6 +110,30 @@ export class EmployeeListComponent implements OnInit {
   updateEmployee(employeeId: string)
   {
     this.router.navigate(['atos/employees/update-employee',employeeId]);
+  }
+  onSelectionChange(event : any) {
+    this.selectedEmployees = event.selected;
+  }
+
+  exportAttestations(){
+   this.fromExportByList = true;
+    this.selectedEmployeeIds = this.employees
+    .filter(employee => employee.selected)
+    .map(employee => employee.employeeId);
+    
+
+
+    const exportRef = this.dialog.open(ExportComponent, {
+      width: '400px',
+      /*height: '350px',*/
+      autoFocus: false,
+    
+      data: { selectedEmployeeIds : this.selectedEmployeeIds,
+        fromExportByList: this.selectedEmployeeIds  },
+    });
+
+    
+
   }
 
 

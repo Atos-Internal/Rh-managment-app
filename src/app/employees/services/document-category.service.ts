@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class DocumentCategoryService {
 
-  private apiUrl = 'http://localhost:8080/api/v1/document-management-services/document/categories'; 
+  private apiUrl = 'http://localhost:8082/api/v1/document-management-services/document/categories'; 
 
   constructor(private http: HttpClient) { }
  

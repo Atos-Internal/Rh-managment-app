@@ -11,7 +11,9 @@ import { EmployeesService } from '../../services/employees.service';
 })
 export class CreateEmployeeComponent {
 
+  civilities = ['Monsieur', 'Mademoiselle', 'Madame'];
   employee: Employee = new Employee();
+  civilites = ['Monsieur', 'Mademoiselle', 'Madame'];
   constructor(private employeesService: EmployeesService,private router: Router) {}
 
   saveEmployee()

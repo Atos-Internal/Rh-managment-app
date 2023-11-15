@@ -12,6 +12,7 @@ export class Employee {
   public releaseDate: string = ''
   public grossMonthlySalary: number = 0
   public bankAccountNumber: string = '';
+  public selected: boolean =false;
 
   constructor() {
   }

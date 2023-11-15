@@ -1,23 +1,24 @@
-<div mat-dialog-content role="dialog" class="px-4 py-4">
+<div mat-dialog-content role="dialog">
+<!--  class="px-4 py-4"> -->
   <ng-container>
     <h1 class="font-color-black">Export</h1>
   </ng-container>
 
    <form [formGroup]="form!" (ngSubmit)="onSubmit()">
-    <ng-container>
-      <mat-form-field>
+    <ng-container >
+      <mat-form-field style="margin: left 50px;" >
         <mat-label>Catégorie de document</mat-label>
-        <mat-select [(ngModel)]="selectedCategoryId" (selectionChange)="onCategorySelected($event)">
+        <mat-select [(ngModel)]="selectedCategoryId" [ngModelOptions]="{standalone: true}" (selectionChange)="onCategorySelected($event)">
           <mat-option *ngFor="let documentCategory of documentCategories" [value]="documentCategory.categoryId">
             {{documentCategory.categoryName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field >
         <mat-label>Type de document</mat-label>
 
-        <mat-select [(ngModel)]="selectedDocumentType"  [disabled]="!selectedCategoryId" (selectionChange)="onTypeSelected($event)">
+        <mat-select [(ngModel)]="selectedDocumentType"  [ngModelOptions]="{standalone: true}" [disabled]="!selectedCategoryId" (selectionChange)="onTypeSelected($event)">
           <mat-option *ngFor="let documentType of documentTypes" [value]="documentType.typeValue">
             {{documentType.typeName}}
           </mat-option>

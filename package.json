@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "-": "^0.0.1",
     "@angular/animations": "^16.1.0",
     "@angular/cdk": "^16.1.7",
     "@angular/common": "^16.1.0",
@@ -25,9 +26,12 @@
     "datatables.net": "^1.11.3",
     "datatables.net-bs5": "^1.11.3",
     "jquery": "^3.6.0",
+    "keycloak-angular": "^14.1.0",
+    "keycloak-js": "^22.0.4",
     "ngx-bootstrap": "^11.0.2",
     "ngx-toastr": "^17.0.2",
     "rxjs": "~7.8.0",
+    "save": "^2.9.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },

@@ -14,6 +14,9 @@ const appRoutes: Routes = [
     //redirectTo: 'employees',
     pathMatch: 'full' 
   },
+  {path: 'create-employee', component: CreateEmployeeComponent},
+
+
   {
     path: ROOT_PATH,
     children: [
@@ -22,6 +25,7 @@ const appRoutes: Routes = [
         path: 'not-found',
         component: NotFoundComponent
       },
+      
 
       {
         path: 'employees',
@@ -31,6 +35,7 @@ const appRoutes: Routes = [
           autoLogin: true,
         },*/
       }
+      
     ]
   },
   /* {

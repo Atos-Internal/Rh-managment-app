@@ -24,6 +24,7 @@ const employeesRoutes: Routes = [
   }, */
   {path: 'create-employee', component: CreateEmployeeComponent},
   {path: 'update-employee/:employeeId',component: UpdateEmployeeComponent},
+ // { path: 'confirm-logout', component: ConfirmLogoutComponent },
 
   {
     path: '**',
